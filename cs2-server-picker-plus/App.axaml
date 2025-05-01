@@ -1,0 +1,32 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="cs2_server_picker_plus.App"
+             xmlns:local="using:cs2_server_picker_plus"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+  
+    <Application.Styles>
+        <FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+
+		<Style Selector="DataGrid:focus DataGridCell:current /template/ Grid#FocusVisual">
+			<Setter Property="IsVisible" Value="False" />
+		</Style>
+
+		<Style Selector="DataGridCell.right">
+			<Setter Property="HorizontalContentAlignment" Value="Right" />
+		</Style>
+	</Application.Styles>
+</Application>

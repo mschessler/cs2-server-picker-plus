@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:cs2_server_picker_plus.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:li="using:LoadingIndicators.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="cs2_server_picker_plus.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/icon.ico"
+        Title="CS2 ServerPickerPlus" Height="450" Width="800" CanResize="false"
+		WindowStartupLocation="CenterScreen">
+
+	<Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="Settings" BorderThickness="2" BorderBrush="Gray" CornerRadius="1">
+				<MenuItem Header="Reset All" Command="{Binding ResetAllCommand}"/>
+				<Separator/>
+				<MenuItem Header="Info" Command="{Binding InfoCommand}"/>
+			</MenuItem>
+		</Menu>
+		<StackPanel Margin="30,0,30,0">
+			<Button HorizontalAlignment="Right" Margin="0,0,0,10" Command="{Binding RefreshCommand}">Refresh</Button>
+				<DataGrid ItemsSource="{Binding Servers}"
+						SelectedItem="{Binding ClickedServerItem}"
+						SelectionMode="Single"
+						GridLinesVisibility="All"
+						CornerRadius="1"
+						BorderThickness="1"
+						BorderBrush="Gray"
+						Height="330">
+					<DataGrid.Columns>
+						<!--Flag Column-->
+						<DataGridTemplateColumn Header="Country" IsReadOnly="true">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Image Source="{Binding Flag}" Width="48" Height="30"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+
+						<!--Server Name-->
+						<DataGridTextColumn Header="Server" Binding="{Binding Name}" Width="*" IsReadOnly="true"/>
+
+						<!--Ping-->
+						<DataGridTextColumn Header="Ping(ms)" Binding="{Binding PingString}" SortMemberPath="Ping" IsReadOnly="true" CellStyleClasses="right" Width="120"/>
+
+						<!--Enabled Checkbox-->
+						<DataGridTemplateColumn>
+							<DataGridTemplateColumn.HeaderTemplate>
+								<DataTemplate>
+									<CheckBox IsChecked="{ReflectionBinding DataContext.IsEnabledAll, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" Margin="20,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.HeaderTemplate>
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<CheckBox IsChecked="{Binding IsEnabled}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+					</DataGrid.Columns>
+				</DataGrid>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="100"></ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="50"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HotKey="Enter" Command="{Binding ApplyCommand}">APPLY</Button>
+				<li:LoadingIndicator Grid.Column="2" IsActive="{Binding IsBusy}" Mode="Arc" HorizontalAlignment="Left"/>
+			</Grid>
+		</StackPanel>
+	</DockPanel>
+
+</Window>
