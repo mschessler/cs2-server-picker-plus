@@ -7,12 +7,15 @@
   <img src="https://img.shields.io/github/stars/mschessler/cs2-server-picker-plus"/>
 
 </div>
+
 A lightweight server picker for CS2 and Deadlock. Based on the original [CS2 Server Picker](https://github.com/FN-FAL113/cs2-server-picker) by FN-FAL113.
 
 ## ⬇️ Download
 ### [Releases](https://github.com/mschessler/cs2-server-picker-plus/releases)
 
 ## 📷 Screenshot
+![image](https://github.com/user-attachments/assets/6f16fbc2-2b70-478f-8085-36c0e684fbe1)
+
 
 ## ⚙️ Requirements
 - Windows 10 or above
